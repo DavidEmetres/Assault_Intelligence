@@ -12,10 +12,12 @@ public class IsPlayerInMyZoneAndIsMyObjective : BaseNode {
 	}
 
 	public bool Evaluate() {
-		if (agent.playerInZone && agent.attackPlayer)
+		if (agent.playerInZone && agent.attackPlayer) {
 			return true;
-		else
+		}
+		else {
 			return false;
+		}
 	}
 
 	public void SetChildren(BaseNode leftChild, BaseNode rightChild) {
@@ -43,12 +45,19 @@ public class AreSomeoneAttackingMe : BaseNode {
 	}
 
 	public bool Evaluate() {
-		for (int i = 0; i < agent.enemiesInZone.Count; i++) {
-			if (agent.enemiesInZone [i].GetComponent<Soldier>().enemyAttacking == agent)
+		foreach (GameObject enemy in agent.enemiesInZone) {
+			if (enemy.GetComponent<Soldier> ().enemyAttacking == agent.gameObject)
 				return true;
 		}
 
 		return false;
+//		for (int i = 0; i < agent.enemiesInZone.Count; i++) {
+//			if (agent.enemiesInZone [i].GetComponent<Soldier> ().enemyAttacking == agent.gameObject) {
+//				return true;
+//			}
+//		}
+//
+//		return false;
 	}
 
 	public void SetChildren(BaseNode leftChild, BaseNode rightChild) {
@@ -112,10 +121,12 @@ public class AreSoldiersMyObjective : BaseNode {
 	}
 
 	public bool Evaluate() {
-		if (agent.attackPlayer)
+		if (agent.attackPlayer) {
 			return false;
-		else
+		}
+		else {
 			return true;
+		}
 	}
 
 	public void SetChildren(BaseNode leftChild, BaseNode rightChild) {
@@ -143,10 +154,12 @@ public class ThereAreSoldiersInMyAttackZone : BaseNode {
 	}
 
 	public bool Evaluate() {
-		if (agent.enemiesInZone.Count > 0)
+		if (agent.enemiesInZone.Count > 0) {
 			return true;
-		else
+		}
+		else {
 			return false;
+		}
 	}
 
 	public void SetChildren(BaseNode leftChild, BaseNode rightChild) {

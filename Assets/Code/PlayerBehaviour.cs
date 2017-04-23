@@ -5,14 +5,17 @@ using System.Collections.Generic;
 public class PlayerBehaviour : MonoBehaviour {
 
 	private SoldierCreator creator;
-	private int playerHealth;
-	private float timeBetweenCreation = 2f;
 	private float creationTimer;
 
-	public int team;
-	public List<GameObject> enemiesInZone = new List<GameObject> ();
+	//PROVISIONAL AUTOMATIC CPU;
+	private float timeBetweenCreation = 3f;
+
+	public float playerHealth;
+	[HideInInspector] public int team;
+	[HideInInspector] public List<GameObject> enemiesInZone = new List<GameObject> ();
 
 	private void Awake () {
+		playerHealth = 20f;
 		team = (tag == "Player") ? 1 : 2;
 		creator = GetComponent<SoldierCreator> ();
 	}
@@ -25,10 +28,34 @@ public class PlayerBehaviour : MonoBehaviour {
 
 			creator.CreateRandomSoldier ();
 		}
+//
+//		if (Input.GetKeyDown (KeyCode.Space) && tag == "Player") {
+//			creator.CreateRandomSoldier ();
+//		}
+
+//		if (Input.GetMouseButtonDown (0) && tag == "Player") {
+//			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+//			RaycastHit hit;
+//			if(Physics.Raycast (ray, out hit, Mathf.Infinity)) {
+//				if (hit.collider.name == "Battleground") {
+//					creator.CreateRandomSoldier (hit.point);
+//				}
+//			}
+//		}
+//
+//		if (Input.GetMouseButtonDown (1) && tag == "EnemyPlayer") {
+//			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+//			RaycastHit hit;
+//			if(Physics.Raycast (ray, out hit, Mathf.Infinity)) {
+//				if (hit.collider.name == "Battleground") {
+//					creator.CreateRandomSoldier (hit.point);
+//				}
+//			}
+//		}
 	}
 
 	public void GetHurt(int power) {
-		playerHealth -= power;
+		playerHealth -= power/10f;
 	}
 
 	private void OnTriggerEnter(Collider other) {

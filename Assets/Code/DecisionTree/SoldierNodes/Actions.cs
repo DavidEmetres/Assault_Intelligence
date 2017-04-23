@@ -13,8 +13,8 @@ public class AttackEnemyPlayer : BaseNode {
 	}
 
 	public bool Evaluate() {
-		agent.SetTarget (agent.enemyPlayer.gameObject);
-
+//		agent.SetTarget (agent.enemyPlayer.gameObject);
+		agent.GetComponent<SoldierMovementManager>().FollowPathToEnemyPlayer();
 		return true;
 	}
 
@@ -46,7 +46,7 @@ public class AttackCloserAttackingEnemy : BaseNode {
 		GameObject target = null;
 
 		for (int i = 0; i < agent.enemiesInZone.Count; i++) {
-			if (agent.enemiesInZone [i].GetComponent<Soldier> ().attackingPlayer) {
+			if (agent.enemiesInZone [i].GetComponent<Soldier> ().enemyAttacking == agent.gameObject) {
 				if (target == null)
 					target = agent.enemiesInZone [i];
 
@@ -56,7 +56,6 @@ public class AttackCloserAttackingEnemy : BaseNode {
 		}
 
 		agent.SetTarget (target);
-
 		return true;
 	}
 
@@ -98,7 +97,6 @@ public class AttackCloserPlayerAttacker : BaseNode {
 		}
 
 		agent.SetTarget (target);
-
 		return true;
 	}
 
@@ -138,7 +136,6 @@ public class AttackEnemyWithLowerHP : BaseNode {
 		}
 
 		agent.SetTarget (target);
-
 		return true;
 	}
 

@@ -11,7 +11,6 @@ public class SoldierCreator : MonoBehaviour {
 	private int movementVel;
 	private bool distanceAttack;
 	private bool attackPlayer;
-	private bool spawningSoldier;
 	private int currentMana;
 	private float manaRegenerationTime;
 	private float manaTimer;
@@ -60,24 +59,13 @@ public class SoldierCreator : MonoBehaviour {
 		attackPlayer = (Random.value < 0.5f);
 
 		int i = Random.Range (0, 3);
-		Transform spawnPos = spawnPositions [i].transform;
+		Vector3 spawnPos = new Vector3(spawnPositions [i].transform.position.x, soldierPrefab.transform.position.y,
+			spawnPositions [i].transform.position.z);
+//		Vector3 spawnPos = new Vector3(worldPos.x, soldierPrefab.transform.position.y, worldPos.z);
 
-		GameObject soldier = Instantiate (soldierPrefab, new Vector3(spawnPos.position.x, 1f, spawnPos.position.z), Quaternion.identity) as GameObject;
+//		GameObject soldier = Instantiate (soldierPrefab, new Vector3(spawnPos.position.x, soldierPrefab.transform.position.y, spawnPos.position.z), Quaternion.identity) as GameObject;
+		GameObject soldier = Instantiate (soldierPrefab, spawnPos, Quaternion.identity) as GameObject;
 		soldier.GetComponent<Soldier> ().Initialize (GetComponent<PlayerBehaviour> ().team, health, power, attackVel, movementVel, distanceAttack, attackPlayer);
 		soldier.transform.LookAt (soldier.GetComponent<Soldier> ().enemyPlayer.transform.position);
 	}
-
-    public void CreateSoldier() {
-		health = (int)healthSlider.value;
-		power = (int)powerSlider.value;
-		attackVel = (int)attackVelSlider.value;
-		movementVel = (int)movementVelSlider.value;
-
-		distanceAttack = distanceAttackToggle.isOn;
-		attackPlayer = attackPlayerToggle.isOn;
-
-		if (!spawningSoldier) {
-			
-		}
-    }
 }
